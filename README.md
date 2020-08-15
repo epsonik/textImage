@@ -1,5 +1,12 @@
 # textImage
 ## Getting Started
+### Prerequisites
+* create virtual environment
+* install requirements
+```
+ pip install -r requirements.txt
+```
+### Create pretrained model from downloaded weights
 Clone repo
 ```
 git clone git@github.com:epsonik/textImage.git
@@ -12,7 +19,7 @@ Run
 ```
 create_model.py
 ```
-this will create file
+this will create file with pretrained model
 ```
 model.h5
 
