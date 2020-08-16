@@ -21,6 +21,8 @@ class BoundBox:
 
         return self.label
 
+
+
     def get_score(self):
         if self.score == -1:
             self.score = self.classes[self.get_label()]
