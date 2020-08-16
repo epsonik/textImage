@@ -143,7 +143,7 @@ def draw_boxes(filename, photo_boxed_filename, v_boxes, v_labels, v_scores):
         # get coordinates
         y1, x1, y2, x2 = box.YtopLeft, box.XtopLeft, box.YbottomRight, box.XbottomRight
         # calculate width and height of the box
-        width, height = x2 - x1, y2 - y1
+        width, height = box.calculate_width(), box.calculate_height()
         # create the shape
         rect = Rectangle((x1, y1), width, height, fill=False, color='white')
         # draw the box

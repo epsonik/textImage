@@ -10,4 +10,4 @@ for i in range(len(v_boxes)):
     for b in range(len(v_boxes)):
         boxB = v_boxes[b]
         if i is not b:
-         print(calculate_position(boxA, boxB))
+            print(calculate_position(boxA, boxB), )
