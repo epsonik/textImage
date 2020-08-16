@@ -8,31 +8,8 @@ from keras.preprocessing.image import img_to_array
 from matplotlib import pyplot
 from matplotlib.patches import Rectangle
 
-class BoundBox:
-    def __init__(self, XtopLeft, YtopLeft, XbottomRight, YbottomRight, objness = None, classes = None):
-        self.XtopLeft = XtopLeft
-        self.YtopLeft = YtopLeft
-        self.XbottomRight = XbottomRight
-        self.YbottomRight = YbottomRight
-        self.objness = objness
-        self.classes = classes
-        self.label = -1
-        self.score = -1
+from BoundBox import BoundBox
 
-    def get_coordinates(self):
-        return self.XtopLeft, self.YtopLeft, self.XbottomRight, self.YbottomRight
-
-    def get_label(self):
-        if self.label == -1:
-            self.label = np.argmax(self.classes)
-
-        return self.label
-
-    def get_score(self):
-        if self.score == -1:
-            self.score = self.classes[self.get_label()]
-
-        return self.score
 
 def _sigmoid(x):
     return 1. / (1. + np.exp(-x))

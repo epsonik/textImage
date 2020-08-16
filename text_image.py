@@ -21,5 +21,5 @@ for i in range(len(v_boxes)):
                        'YbottomRight':[ymax],
                           'label':[label]})
     image_b_boxes = image_b_boxes.append(b_box, ignore_index=True)
-image_b_boxes.to_csv("dog.csv")
+image_b_boxes.to_csv("dog.csv", index=False)
 print(image_b_boxes)

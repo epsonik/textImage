@@ -1,4 +1,12 @@
 import pandas as pd
 
-image_b_boxes = pd.read_csv("dog.csv")
-print(image_b_boxes)
+import BoundBox
+from position_utils import calculate_position
+
+image_b_boxes_df = pd.read_csv("dog.csv")
+v_boxes = BoundBox.read_table(image_b_boxes_df)
+for i in range(len(v_boxes)):
+    boxA = v_boxes[i]
+    for b in range(len(v_boxes)):
+        boxB = v_boxes[b]
+        print(calculate_position(boxA, boxB))
