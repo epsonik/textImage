@@ -3,7 +3,7 @@ from keras_preprocessing.image import load_img
 
 from BoundBox import BoundBox
 
-image = load_img("dog.jpg")
+image = load_img("./IMAGES/dog.jpg")
 image_width, image_height = image.size
 centroid_rectangle = None
 
@@ -63,9 +63,9 @@ def is_centered(boxA):
            and boxA.YtopLeft < boxB.YtopLeft < boxB.YbottomRight < boxA.YbottomRight
 
 
-def is_cornered():
-    return False
-
-
-def position_on_image():
-    return True
+def position_on_image(box):
+    return 'is_left_oriented', is_left_oriented(box), \
+           'is_right_oriented', is_right_oriented(box), \
+           'is_top_oriented', is_top_oriented(box), \
+           'is_bottom_oriented', is_bottom_oriented(box), \
+           'is_centered', is_centered(box)
