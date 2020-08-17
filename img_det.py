@@ -183,5 +183,5 @@ def vbox_engine(photo_filename):
     # define the labels
     # get the details of the detected objects
     v_boxes, v_labels, v_scores = get_boxes(boxes, labels, class_threshold)
-    return v_boxes, v_labels, v_scores
+    return v_boxes, v_labels, v_scores, image_w, image_h
 # summarize what we found
