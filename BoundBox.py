@@ -48,5 +48,5 @@ class Reading(BoundBox):
         self.area = area
 
 
-def read_table(df):
-    return [Reading(**kwargs) for kwargs in df.to_dict(orient='records')]
+def read_table(json):
+    return [Reading(**t) for t in json]
