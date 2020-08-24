@@ -1,9 +1,7 @@
-import pandas as pd
 import json
 
 import BoundBox
-# from position_utils import calculate_position_between_objects, centroid_distance, position_on_image, centroid_rectangle
-from position_utils import calculate_position_between_objects, position_on_image, position_between_objects
+from position_utils import position_on_image, position_between_objects
 
 
 def print_pretty(raw_json):
