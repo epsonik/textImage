@@ -1,0 +1,4 @@
+img_id,XtopLeft,YtopLeft,XbottomRight,YbottomRight,Xcentroid,Ycentroid,area,label
+5252583744,469,115,693,197,581.0,156.0,18368,truck
+5252583744,99,119,576,484,337.5,301.5,174105,bicycle
+5252583744,122,233,320,552,221.0,392.5,63162,dog
