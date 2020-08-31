@@ -8,7 +8,7 @@ from keras.preprocessing.image import img_to_array
 from matplotlib import pyplot
 from matplotlib.patches import Rectangle
 
-from BoundBox import BoundBox
+from bound_box import BoundBox
 
 labels = data = [line.strip() for line in open("yolov3.txt", 'r')]
 

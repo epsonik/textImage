@@ -2,28 +2,36 @@
 import abc
 
 
-class OrientationInterface(metaclass=abc.ABCMeta):
+class Orientation():
     def __init__(self, box, image_width, image_height):
         self.box = box
         self.image_width = image_width
         self.image_height = image_height
 
-    @abc.abstractmethod
     def left_orientation(self):
         """Load in the data set"""
         raise NotImplementedError
 
-    @abc.abstractmethod
     def right_orientation(self):
         """Extract text from the data set"""
         raise NotImplementedError
 
-    @abc.abstractmethod
     def top_orientation(self):
         """Load in the data set"""
         raise NotImplementedError
 
-    @abc.abstractmethod
     def bottom_orientation(self):
         """Extract text from the data set"""
         raise NotImplementedError
+
+    def certainty_factor_left(self, X):
+        return (-1) * (2 * X - self.image_width) / self.image_width
+
+    def certainty_factor_right(self, X):
+        return (2 * X - self.image_width) / self.image_width
+
+    def certainty_factor_top(self, Y):
+        return (-1) * (2 * Y - self.image_height) / self.image_height
+
+    def certainty_factor_bottom(self, Y):
+        return (2 * Y - self.image_height) / self.image_height

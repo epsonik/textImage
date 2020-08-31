@@ -2,6 +2,7 @@ import numpy as np
 
 
 class BoundBox:
+
     def __init__(self, XtopLeft, YtopLeft, XbottomRight, YbottomRight, objness=None, classes=None):
         self.XtopLeft = XtopLeft
         self.YtopLeft = YtopLeft

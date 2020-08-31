@@ -3,64 +3,13 @@ import json
 import numpy as np
 from keras_preprocessing.image import load_img
 
-from BoundBox import BoundBox
-from orientation_interface import OrientationInterface
+from bound_box import BoundBox
+from position_metrics.area_method import AreaMethod
+from position_metrics.centroid_method import CentroidMethod
 
 image = load_img("./IMAGES/dog.jpg")
 image_width, image_height = image.size
 centroid_rectangle = None
-
-
-class ClassicMethod(OrientationInterface):
-
-    def _is_left_oriented(self):
-        return self.box.XbottomRight <= self.image_width / 2
-
-    def _certainty_factor_left(self):
-        return self.box.XbottomRight / self.image_width
-
-    def _is_right_oriented(self):
-        return self.box.XtopLeft >= image_width / 2
-
-    def _certainty_factor_right(self):
-        return self.box.XtopLeft / self.image_width
-
-    def _is_top_oriented(self):
-        return self.box.YbottomRight <= self.image_height / 2
-
-    def _certainty_factor_top(self):
-        return self.box.YbottomRight / self.image_height
-
-    def _is_bottom_oriented(self):
-        return self.box.YtopLeft >= self.image_height / 2
-
-    def _certainty_factor_bottom(self):
-        return self.box.YtopLeft / self.image_height
-
-    def left_orientation(self):
-        return {
-            'left_orientation': self._is_left_oriented(),
-            'certainty_factor': self._certainty_factor_left() if self._is_left_oriented() else -1
-        }
-
-    def right_orientation(self):
-        return {
-            'right_orientation': self._is_right_oriented(),
-            'certainty_factor': self._certainty_factor_right() if self._is_right_oriented() else -1
-        }
-
-    def top_orientation(self):
-        return {
-            'is_top_oriented': self._is_top_oriented(),
-            'certainty_factor': self._certainty_factor_top() if self._is_top_oriented() else -1
-        }
-
-    def bottom_orientation(self):
-        return {
-            'bottom_orientation': self._is_bottom_oriented(),
-            'certainty_factor': self._certainty_factor_bottom() if self._is_bottom_oriented() else -1
-        }
-
 
 def print_pretty(raw_json):
     print(json.dumps(raw_json, indent=4, sort_keys=True))
@@ -106,7 +55,7 @@ def is_centered(boxA):
 
 
 def _position_on_image(box):
-    classicMethod = ClassicMethod(box, image_width, image_height)
+    classicMethod = CentroidMethod(box, image_width, image_height)
     return {box.label: {'left_orientation': classicMethod.left_orientation(),
                         'right_orientation': classicMethod.right_orientation(),
                         'top_orientation': classicMethod.top_orientation(),
@@ -134,3 +83,17 @@ def position_between_objects(v_boxes):
             if i is not b:
                 pos_bet_obj.append(calculate_position_between_objects(boxA, boxB))
     return position_between_objects
+
+
+def vbox_position(v_boxes):
+    for i in range(v_boxes.__len__()):
+        box = v_boxes[i]
+        print_pretty(_position_on_image_area(box))
+
+
+def _position_on_image_area(box):
+    areaMethod = AreaMethod(box, image_width, image_height)
+    return {box.label: {'left_orientation': areaMethod.left_orientation(),
+                        'right_orientation': areaMethod.right_orientation(),
+                        'top_orientation': areaMethod.top_orientation(),
+                        'bottom_orientation': areaMethod.bottom_orientation()}}

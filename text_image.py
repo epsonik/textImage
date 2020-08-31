@@ -28,8 +28,8 @@ def save_to_csv(v_boxes, photo_filename):
         json.dump(image_b_boxes, outfile)
     return image_b_boxes
 
-photo_filename = './IMAGES/dog.jpg'
-photo_boxed_filename = './dog_boxed.jpg'
+photo_filename = './IMAGES/bicycle/COCO_train2014_000000294933.jpg'
+photo_boxed_filename = './bicycle_boxed.jpg'
 v_boxes, v_labels, v_scores, image_w, image_h = vbox_engine(photo_filename)
 img_id = id(v_boxes)
 draw_boxes(photo_filename, photo_boxed_filename, v_boxes, v_labels, v_scores)
