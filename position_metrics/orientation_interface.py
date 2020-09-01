@@ -1,5 +1,4 @@
 # interface for orientation certainty
-import abc
 
 
 class Orientation():
@@ -35,3 +34,9 @@ class Orientation():
 
     def certainty_factor_bottom(self, Y):
         return (2 * Y - self.image_height) / self.image_height
+
+    def convert_top_bottom_to_polygon(self, box):
+        return [(box.XtopLeft, box.YtopLeft),
+                (box.XbottomRight, box.YtopLeft),
+                (box.XbottomRight, box.YbottomRight),
+                (box.XtopLeft, box.YbottomRight)]

@@ -13,15 +13,7 @@ class AreaMethod(Orientation):
         self.LEFT = BoundBox(0, 0, image_width / 2, image_height)
         self.RIGHT = BoundBox(image_width / 2, 0, image_width, image_height)
 
-    def convert_top_bottom_to_polygon(self, box):
-        return [(box.XtopLeft, box.YtopLeft),
-                (box.XbottomRight, box.YtopLeft),
-                (box.XbottomRight, box.YbottomRight),
-                (box.XtopLeft, box.YbottomRight)]
-
     def calc_overlap_area(self, boxA, boxB):
-        from shapely.geometry import Polygon
-
         polygon = Polygon(self.convert_top_bottom_to_polygon(boxA))
         other_polygon = Polygon(self.convert_top_bottom_to_polygon(boxB))
         intersection = polygon.intersection(other_polygon)

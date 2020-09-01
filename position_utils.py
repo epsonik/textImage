@@ -62,10 +62,10 @@ def _position_on_image(box):
                         'bottom_orientation': classicMethod.bottom_orientation()}}
 
 
-def position_on_image(v_boxes):
+def centroid_vbox_position_on_image(v_boxes):
     position_on_image = {}
-    position_on_image['position_on_image'] = []
-    t = position_on_image['position_on_image']
+    position_on_image['centroid_position_on_image'] = []
+    t = position_on_image['centroid_position_on_image']
     for i in range(len(v_boxes)):
         boxA = v_boxes[i]
         t.append(_position_on_image(boxA))
@@ -85,11 +85,14 @@ def position_between_objects(v_boxes):
     return position_between_objects
 
 
-def vbox_position(v_boxes):
+def area_vbox_position_on_image(v_boxes):
+    position_on_image = {}
+    position_on_image['area_position_on_image'] = []
+    t = position_on_image['area_position_on_image']
     for i in range(v_boxes.__len__()):
         box = v_boxes[i]
-        print_pretty(_position_on_image_area(box))
-
+        t.append(_position_on_image_area(box))
+    return position_on_image
 
 def _position_on_image_area(box):
     areaMethod = AreaMethod(box, image_width, image_height)
