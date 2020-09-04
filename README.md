@@ -52,6 +52,7 @@ Each bounding box table have class name label in left upper corner.
 * right_orientation
 * top_orientation
 * bottom_orientation
+
 Other columns are the name of the metod used for certainty factor. Now are implemented:
 * centroid method
 * area methos
