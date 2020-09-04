@@ -56,19 +56,17 @@ def is_centered(boxA):
 
 def _position_on_image(box):
     classicMethod = CentroidMethod(box, image_width, image_height)
-    return {box.label: {'left_orientation': classicMethod.left_orientation(),
-                        'right_orientation': classicMethod.right_orientation(),
-                        'top_orientation': classicMethod.top_orientation(),
-                        'bottom_orientation': classicMethod.bottom_orientation()}}
+    return {'left_orientation': classicMethod.left_orientation(),
+            'right_orientation': classicMethod.right_orientation(),
+            'top_orientation': classicMethod.top_orientation(),
+            'bottom_orientation': classicMethod.bottom_orientation()}
 
 
 def centroid_vbox_position_on_image(v_boxes):
     position_on_image = {}
-    position_on_image['centroid_position_on_image'] = []
-    t = position_on_image['centroid_position_on_image']
     for i in range(len(v_boxes)):
         boxA = v_boxes[i]
-        t.append(_position_on_image(boxA))
+        position_on_image[boxA.label] = _position_on_image(boxA)
     return position_on_image
 
 
@@ -87,16 +85,15 @@ def position_between_objects(v_boxes):
 
 def area_vbox_position_on_image(v_boxes):
     position_on_image = {}
-    position_on_image['area_position_on_image'] = []
-    t = position_on_image['area_position_on_image']
     for i in range(v_boxes.__len__()):
         box = v_boxes[i]
-        t.append(_position_on_image_area(box))
+        position_on_image[box.label] = _position_on_image_area(box)
     return position_on_image
+
 
 def _position_on_image_area(box):
     areaMethod = AreaMethod(box, image_width, image_height)
-    return {box.label: {'left_orientation': areaMethod.left_orientation(),
-                        'right_orientation': areaMethod.right_orientation(),
-                        'top_orientation': areaMethod.top_orientation(),
-                        'bottom_orientation': areaMethod.bottom_orientation()}}
+    return {'left_orientation': areaMethod.left_orientation(),
+            'right_orientation': areaMethod.right_orientation(),
+            'top_orientation': areaMethod.top_orientation(),
+            'bottom_orientation': areaMethod.bottom_orientation()}

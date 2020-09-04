@@ -6,3 +6,7 @@ pandas
 Keras
 matplotlib
 shapely
+PySimpleGUI
+FPDF
+xlsxwriter
+openpyxl

@@ -152,7 +152,7 @@ def draw_boxes(filename, photo_boxed_filename, v_boxes, v_labels, v_scores):
         label = "%s (%.3f)" % (v_labels[i], v_scores[i])
         pyplot.text(x1, y1, label, color='white')
     # show the plot
-    pyplot.savefig('./IMAGES/{}'.format(photo_boxed_filename))
+    pyplot.savefig(photo_boxed_filename)
     pyplot.show()
 # load yolov3 model
 def vbox_engine(photo_filename):
