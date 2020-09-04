@@ -48,10 +48,10 @@ Report is in .xlsx. Have 2 worksheets:
  data  with bounding boxes 
 Each bounding box table have class name label in left upper corner.
  First column is the name of the position. Options:
-left_orientation
-right_orientation
-top_orientation
-bottom_orientation
+* left_orientation
+* right_orientation
+* top_orientation
+* bottom_orientation
 Other columns are the name of the metod used for certainty factor. Now are implemented:
-centroid method
-area methos
+* centroid method
+* area methos
