@@ -1,8 +1,10 @@
+import io
 import json
 
 # simple_demo.py
 import pandas as pd
 import xlsxwriter
+from PIL import Image
 
 import bound_box
 from img_det import draw_boxes, vbox_engine
@@ -53,12 +55,33 @@ def create_excel(box_df, input_filename_full_path, photo_boxed_filename, report_
 
     # Insert an image.
     worksheet.write('A2', 'Original photo:')
-    worksheet.insert_image('B2', input_filename_full_path, {'x_scale': 2, 'y_scale': 2})
+
+    def get_resized_image_data(file_path, bound_width_height):
+        # get the image and resize it
+        im = Image.open(file_path)
+        im.thumbnail(bound_width_height, Image.ANTIALIAS)  # ANTIALIAS is important if shrinking
+
+        # stuff the image data into a bytestream that excel can read
+        im_bytes = io.BytesIO()
+        im.save(im_bytes, format='PNG')
+        return im_bytes
+
+    bound_width_height = (480, 480)
+    image_data = get_resized_image_data(input_filename_full_path, bound_width_height)
+    im = Image.open(image_data)
+    im.seek(0)
+    worksheet.insert_image('B2', input_filename_full_path, {'image_data': image_data})
 
     # Insert an image.
     worksheet.write('A20', 'Photo with boxes:')
-    worksheet.insert_image('B20', photo_boxed_filename)
+    bound_width_height = (500, 500)
+
+    image_data = get_resized_image_data(photo_boxed_filename, bound_width_height)
+    im = Image.open(image_data)
+    im.seek(0)
+    worksheet.insert_image('B20', photo_boxed_filename, {'image_data': image_data})
     worksheet = workbook.add_worksheet('data')
+
     def write_data_frame():
         i = 0
         for box in box_df.keys():
@@ -68,6 +91,7 @@ def create_excel(box_df, input_filename_full_path, photo_boxed_filename, report_
                 for index, value in box_df[box][col].items():
                     worksheet.write(i + 2 + index, idx, value)
             i = i + len(box_df[box]) + 3
+
     write_data_frame()
     workbook.close()
 

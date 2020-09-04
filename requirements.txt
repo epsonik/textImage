@@ -10,3 +10,4 @@ PySimpleGUI
 FPDF
 xlsxwriter
 openpyxl
+PIL
