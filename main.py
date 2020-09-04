@@ -74,8 +74,7 @@ def create_excel(box_df, input_filename_full_path, photo_boxed_filename, report_
 
     # Insert an image.
     worksheet.write('A20', 'Photo with boxes:')
-    bound_width_height = (500, 500)
-
+    bound_width_height = (600, 600)
     image_data = get_resized_image_data(photo_boxed_filename, bound_width_height)
     im = Image.open(image_data)
     im.seek(0)
