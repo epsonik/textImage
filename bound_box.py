@@ -43,7 +43,7 @@ class Reading(BoundBox):
     def __init__(self, img_id, XtopLeft, YtopLeft, XbottomRight, YbottomRight, Xcentroid, Ycentroid, area, label):
         super().__init__(XtopLeft, YtopLeft, XbottomRight, YbottomRight)
         self.label = label
-        self.img_di = img_id
+        self.img_id = img_id
         self.Xcentroid = Xcentroid
         self.Ycentroid = Ycentroid
         self.area = area

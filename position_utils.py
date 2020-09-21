@@ -8,18 +8,17 @@ from position_metrics.area_method import AreaMethod
 from position_metrics.centroid_method import CentroidMethod
 
 image = load_img("./IMAGES/dog.jpg")
-image_width, image_height = image.size
 centroid_rectangle = None
 
 def print_pretty(raw_json):
     print(json.dumps(raw_json, indent=4, sort_keys=True))
 
 
-def centroid_rectangle():
-    centroid_rectangle_width = 220 / 283 * image_width
-    centroid_rectangle_height = 115 / 163 * image_height
-    Yimage_position_proportion = 18 / 163 * image_height
-    Ximage_position_proportion = 42 / 283 * image_width
+def centroid_rectangle(image_w, image_h):
+    centroid_rectangle_width = 220 / 283 * image_w
+    centroid_rectangle_height = 115 / 163 * image_h
+    Yimage_position_proportion = 18 / 163 * image_h
+    Ximage_position_proportion = 42 / 283 * image_w
 
     XtopLeft = Ximage_position_proportion
     YtopLeft = Yimage_position_proportion
@@ -54,19 +53,19 @@ def is_centered(boxA):
            and boxA.YtopLeft < boxB.YtopLeft < boxB.YbottomRight < boxA.YbottomRight
 
 
-def _position_on_image(box):
-    classicMethod = CentroidMethod(box, image_width, image_height)
+def _position_on_image(box, image_w, image_h):
+    classicMethod = CentroidMethod(box, image_w, image_h)
     return {'left_orientation': classicMethod.left_orientation(),
             'right_orientation': classicMethod.right_orientation(),
             'top_orientation': classicMethod.top_orientation(),
             'bottom_orientation': classicMethod.bottom_orientation()}
 
 
-def centroid_vbox_position_on_image(v_boxes):
+def centroid_vbox_position_on_image(v_boxes, image_w, image_h):
     position_on_image = {}
     for i in range(len(v_boxes)):
         boxA = v_boxes[i]
-        position_on_image[boxA.label] = _position_on_image(boxA)
+        position_on_image[boxA.label] = _position_on_image(boxA, image_w, image_h)
     return position_on_image
 
 
@@ -83,16 +82,16 @@ def position_between_objects(v_boxes):
     return position_between_objects
 
 
-def area_vbox_position_on_image(v_boxes):
+def area_vbox_position_on_image(v_boxes, image_w, image_h):
     position_on_image = {}
     for i in range(v_boxes.__len__()):
         box = v_boxes[i]
-        position_on_image[box.label] = _position_on_image_area(box)
+        position_on_image[box.label] = _position_on_image_area(box, image_w, image_h)
     return position_on_image
 
 
-def _position_on_image_area(box):
-    areaMethod = AreaMethod(box, image_width, image_height)
+def _position_on_image_area(box, image_w, image_h):
+    areaMethod = AreaMethod(box, image_w, image_h)
     return {'left_orientation': areaMethod.left_orientation(),
             'right_orientation': areaMethod.right_orientation(),
             'top_orientation': areaMethod.top_orientation(),

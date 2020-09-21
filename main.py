@@ -22,7 +22,7 @@ def create_report(input_filename):
 
     v_boxes = bound_box.read_table(image_b_boxes_df['bound_boxes'])
     # print_pretty(position_between_objects(v_boxes))
-    centroid_vbox_position = centroid_vbox_position_on_image(v_boxes)
+    centroid_vbox_position = centroid_vbox_position_on_image(v_boxes, image_w, image_h)
     print_pretty(centroid_vbox_position)
     area_vbox_position = area_vbox_position_on_image(v_boxes)
     print_pretty(area_vbox_position)
