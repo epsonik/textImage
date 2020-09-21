@@ -58,7 +58,7 @@ class AreaMethod(Orientation):
 
     def top_orientation(self):
         return {
-            'is_top_oriented': self._is_top_oriented(),
+            'top_orientation': self._is_top_oriented(),
             'certainty_factor': self._certainty_factor_top()
         }
 

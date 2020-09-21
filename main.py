@@ -26,23 +26,29 @@ def create_report(input_filename):
     print_pretty(centroid_vbox_position)
     area_vbox_position = area_vbox_position_on_image(v_boxes)
     print_pretty(area_vbox_position)
-    orientation_pointer_dict_centroid = {}
-    full = {}
-    for box in centroid_vbox_position.keys():
-        print(box)
-        orientation_pointer_dict_centroid['name'] = [*centroid_vbox_position[box]]
-        t = {}
-        t['center'] = []
-        area = {}
-        area['area'] = []
-        for orientation_pointer in centroid_vbox_position[box].keys():
-            t['center'].append(centroid_vbox_position[box][orientation_pointer]['certainty_factor'])
-            area['area'].append(area_vbox_position[box][orientation_pointer]['certainty_factor'])
-        df = pd.DataFrame({'position_on_image'.upper(): [*centroid_vbox_position[box]],
-                           'centeroid_method_certainty_factor'.upper(): t['center'],
-                           'area_method_certainty_factor'.upper(): area['area']})
-        full[box] = df
+    create_df(centroid_vbox_position, area_vbox_position)
+
     return full, photo_boxed_filename
+
+
+def create_df(c_vbox_position, a_vbox_position):
+    full = {}
+    orientation_pointer_dict_centroid = {}
+    for box in c_vbox_position.keys():
+        print(box)
+    orientation_pointer_dict_centroid['name'] = [*c_vbox_position[box]]
+    t = {}
+    t['center'] = []
+    area = {}
+    area['area'] = []
+    for orientation_pointer in c_vbox_position[box].keys():
+        t['center'].append(c_vbox_position[box][orientation_pointer]['certainty_factor'])
+        area['area'].append(a_vbox_position[box][orientation_pointer]['certainty_factor'])
+    df = pd.DataFrame({'position_on_image'.upper(): [*c_vbox_position[box]],
+                       'centeroid_method_certainty_factor'.upper(): t['center'],
+                       'area_method_certainty_factor'.upper(): area['area']})
+    full[box] = df
+    return full
 
 
 def create_excel(box_df, input_filename_full_path, photo_boxed_filename, report_file_name):
